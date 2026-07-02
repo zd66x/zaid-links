@@ -1,0 +1,840 @@
+/* =========================================================
+   Zaid Khaza'leh — Link Page
+   Modern glassmorphism, RTL, animated background
+   ========================================================= */
+
+:root {
+    --bg-0: #07091a;
+    --bg-1: #0b1020;
+    --bg-2: #131a36;
+    --ink: #f3f5ff;
+    --ink-dim: rgba(243, 245, 255, 0.72);
+    --ink-mute: rgba(243, 245, 255, 0.5);
+    --line: rgba(255, 255, 255, 0.10);
+    --line-strong: rgba(255, 255, 255, 0.18);
+    --glass: rgba(255, 255, 255, 0.06);
+    --glass-strong: rgba(255, 255, 255, 0.10);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.30);
+    --accent: #7c5cff;
+    --accent-2: #2bd1ff;
+    --radius: 18px;
+    --radius-lg: 26px;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Tajawal', 'Cairo', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-0);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(24px, 5vw, 60px) 16px 80px;
+    position: relative;
+    isolation: isolate;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- الخلفية المتحركة ---- */
+.bg-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+        radial-gradient(1200px 700px at 20% 0%, #1d2452 0%, transparent 60%),
+        radial-gradient(1000px 600px at 100% 100%, #2a164d 0%, transparent 60%),
+        linear-gradient(160deg, #07091a 0%, #0b1020 50%, #0a0f24 100%);
+    background-size: 200% 200%;
+    animation: bg-shift 22s ease-in-out infinite;
+}
+
+@keyframes bg-shift {
+    0%, 100% { background-position: 0% 50%, 100% 100%, 0% 50%; }
+    50%      { background-position: 100% 50%, 0% 0%, 100% 50%; }
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.bg-orb {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.bg-orb-1 {
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, #7c5cff 0%, transparent 70%);
+    top: -120px; right: -80px;
+    animation: orb-float 18s ease-in-out infinite;
+}
+.bg-orb-2 {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, #2bd1ff 0%, transparent 70%);
+    bottom: -140px; left: -100px;
+    animation: orb-float 22s ease-in-out infinite reverse;
+}
+.bg-orb-3 {
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, #ff5c8a 0%, transparent 70%);
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: orb-float 26s ease-in-out infinite;
+}
+
+@keyframes orb-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(40px, -30px) scale(1.08); }
+    66%      { transform: translate(-30px, 40px) scale(0.94); }
+}
+
+.bg-orb-3 { animation-name: orb-float-center; }
+
+@keyframes orb-float-center {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-40%, -60%) scale(1.1); }
+}
+
+/* ---- الكارت الرئيسي ---- */
+.card-wrap {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(16px, 4vw, 40px);
+}
+
+.card {
+    width: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+    border: 1px solid var(--line);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    animation: card-in 700ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); filter: blur(8px); }
+    to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(124,92,255,0.55), rgba(43,209,255,0.15) 40%, transparent 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* ---- البروفايل ---- */
+.profile {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-wrap {
+    position: relative;
+    width: 132px;
+    height: 132px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 6px;
+}
+
+.avatar-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #7c5cff, #2bd1ff, #ff5c8a, #7c5cff);
+    filter: blur(2px);
+    opacity: 0.85;
+    animation: spin 8s linear infinite;
+}
+
+.avatar-ring::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--bg-1);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--bg-1);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    z-index: 1;
+}
+
+.verified {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #2bd1ff, #7c5cff);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 14px;
+    border: 3px solid var(--bg-1);
+    z-index: 2;
+    box-shadow: 0 4px 14px rgba(124,92,255,0.55);
+}
+
+.name {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #fff 0%, #c8d0ff 50%, #9ec5ff 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+}
+
+.handle {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-top: -4px;
+    direction: ltr;
+}
+
+.dhikr {
+    margin-top: 6px;
+    padding: 14px 18px;
+    background: rgba(124, 92, 255, 0.08);
+    border: 1px solid rgba(124, 92, 255, 0.22);
+    border-radius: 14px;
+    color: var(--ink);
+    font-family: 'Cairo', serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+    line-height: 1.9;
+    position: relative;
+    max-width: 100%;
+}
+
+.quote-mark {
+    color: #7c5cff;
+    margin: 0 4px;
+    font-weight: 700;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.badge i {
+    color: #2bd1ff;
+    font-size: 0.78rem;
+}
+
+/* ---- شارة التخصص (IoT Student) ---- */
+.specialty {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, rgba(124,92,255,0.15), rgba(43,209,255,0.10));
+    border: 1px solid rgba(124,92,255,0.30);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.2px;
+    position: relative;
+    box-shadow: 0 4px 18px rgba(124,92,255,0.18);
+}
+
+.specialty i {
+    color: #2bd1ff;
+    font-size: 0.85rem;
+}
+
+.specialty-sep {
+    opacity: 0.4;
+    margin: 0 2px;
+}
+
+/* نقطة نابضة بجانب الأيقونة — إشارة IoT "online" */
+.specialty-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2bd1ff;
+    box-shadow: 0 0 0 0 rgba(43, 209, 255, 0.6);
+    animation: pulse 2s ease-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(43, 209, 255, 0.6); }
+    70%  { box-shadow: 0 0 0 12px rgba(43, 209, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(43, 209, 255, 0); }
+}
+
+/* ---- My Stack (تقنيات إنترنت الأشياء) ---- */
+.stack {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-align: start;
+}
+
+.stack-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-dim);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.stack-title i {
+    color: #7c5cff;
+    font-size: 0.75rem;
+}
+
+.stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: linear-gradient(135deg, rgba(124,92,255,0.10), rgba(43,209,255,0.06));
+    border: 1px solid rgba(124,92,255,0.22);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    cursor: default;
+}
+
+.chip:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124,92,255,0.5);
+    background: linear-gradient(135deg, rgba(124,92,255,0.18), rgba(43,209,255,0.12));
+}
+
+.chip i {
+    color: #2bd1ff;
+    font-size: 0.72rem;
+}
+
+/* ---- شبكة الروابط ---- */
+.links {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.link-btn {
+    --brand: #7c5cff;
+    --brand2: #2bd1ff;
+    --ink: #fff;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1),
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+    will-change: transform;
+    animation: link-in 600ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.link-btn:nth-child(1) { animation-delay: 80ms; }
+.link-btn:nth-child(2) { animation-delay: 160ms; }
+.link-btn:nth-child(3) { animation-delay: 240ms; }
+.link-btn:nth-child(4) { animation-delay: 320ms; }
+.link-btn:nth-child(5) { animation-delay: 400ms; }
+.link-btn:nth-child(6) { animation-delay: 480ms; }
+.link-btn:nth-child(7) { animation-delay: 560ms; }
+
+@keyframes link-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.link-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--brand), var(--brand2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.link-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--brand), var(--brand2));
+    opacity: 0;
+    filter: blur(18px);
+    transition: opacity 0.3s ease;
+    z-index: -2;
+}
+
+.link-btn:hover,
+.link-btn:focus-visible {
+    transform: translateY(-3px);
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--brand), var(--brand2));
+    box-shadow:
+        0 10px 28px color-mix(in srgb, var(--brand) 35%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--brand) 50%, transparent);
+    outline: none;
+}
+
+.link-btn:hover::after,
+.link-btn:focus-visible::after {
+    opacity: 0.35;
+}
+
+.link-btn:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+.link-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--brand) 22%, transparent);
+    color: color-mix(in srgb, var(--brand) 80%, #fff);
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), background 0.3s ease;
+}
+
+.link-btn:hover .link-icon,
+.link-btn:focus-visible .link-icon {
+    transform: scale(1.08) rotate(-4deg);
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+}
+
+.link-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: start;
+}
+
+.link-title {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+}
+
+.link-sub {
+    font-size: 0.82rem;
+    opacity: 0.75;
+    font-weight: 500;
+    direction: ltr;
+    text-align: start;
+}
+
+.link-arrow {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.link-btn:hover .link-arrow,
+.link-btn:focus-visible .link-arrow {
+    color: #fff;
+    transform: translateX(-4px);
+}
+
+[dir="rtl"] .link-btn:hover .link-arrow,
+[dir="rtl"] .link-btn:focus-visible .link-arrow {
+    transform: translateX(4px);
+}
+
+/* ---- الفوتر ---- */
+.footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+    text-align: center;
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer-line {
+    font-weight: 500;
+}
+
+.heart {
+    color: #ff5c8a;
+    display: inline-block;
+    animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25%      { transform: scale(1.25); }
+    50%      { transform: scale(0.95); }
+}
+
+/* ---- زر المشاركة العائم ---- */
+.share-fab {
+    position: fixed;
+    bottom: 22px;
+    inset-inline-end: 22px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(135deg, #7c5cff, #2bd1ff);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 12px 30px rgba(124,92,255,0.45);
+    z-index: 50;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.share-fab:hover {
+    transform: translateY(-3px) scale(1.06);
+    box-shadow: 0 16px 36px rgba(124,92,255,0.6);
+}
+
+.share-fab:active {
+    transform: translateY(0) scale(0.96);
+}
+
+/* ---- Modal ---- */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal[aria-hidden="false"] {
+    display: flex;
+    animation: fade-in 200ms ease;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 9, 26, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    border: 1px solid var(--line-strong);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: modal-in 280ms cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes modal-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    inset-inline-end: 14px;
+    background: none;
+    border: 0;
+    color: var(--ink-dim);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.modal-card h3 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.modal-sub {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+}
+
+.share-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.05);
+    color: var(--ink);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.share-btn:hover {
+    transform: translateY(-3px) scale(1.06);
+    background: rgba(255,255,255,0.12);
+    border-color: var(--line-strong);
+}
+
+.share-btn[data-network="whatsapp"]:hover  { color: #25D366; }
+.share-btn[data-network="telegram"]:hover  { color: #229ED9; }
+.share-btn[data-network="twitter"]:hover   { color: #fff; background: #000; }
+.share-btn[data-network="snapchat"]:hover  { color: #FFFC00; background: #111; }
+.share-btn[data-network="copy"]:hover      { color: #7c5cff; }
+
+.copy-bar {
+    display: flex;
+    gap: 8px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 6px 6px 6px 12px;
+    align-items: center;
+}
+
+.copy-bar input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.85rem;
+    direction: ltr;
+    text-align: start;
+    min-width: 0;
+}
+
+#copy-btn {
+    background: linear-gradient(135deg, #7c5cff, #2bd1ff);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#copy-btn:hover {
+    transform: scale(1.04);
+}
+
+/* ---- Toast ---- */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(20, 25, 50, 0.95);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    backdrop-filter: blur(10px);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px 60px;
+    }
+    .card {
+        padding: 22px 18px;
+    }
+    .link-btn {
+        padding: 12px 14px;
+    }
+    .link-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    .share-fab {
+        bottom: 16px;
+        inset-inline-end: 16px;
+        width: 46px;
+        height: 46px;
+        font-size: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* ---- Focus accessibility ---- */
+.link-btn:focus-visible {
+    outline: 2px solid #2bd1ff;
+    outline-offset: 3px;
+}
+.share-btn:focus-visible,
+.share-fab:focus-visible {
+    outline: 2px solid #2bd1ff;
+    outline-offset: 3px;
+}

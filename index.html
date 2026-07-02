@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zaid Khaza'leh — روابطي وحساباتي الرسمية">
+    <meta name="theme-color" content="#0b1020">
+    <title>Zaid Khaza'leh</title>
+    <link rel="icon" type="image/png" href="https://alakbar-store.com/public/uploads/files/rmSndwxGWCV_zZh.png">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- طبقة الخلفية المتحركة -->
+    <div class="bg-gradient" aria-hidden="true"></div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+
+    <!-- زر نسخ الرابط العائم -->
+    <button id="share-fab" class="share-fab" aria-label="مشاركة الصفحة">
+        <i class="fa-solid fa-share-nodes"></i>
+    </button>
+
+    <!-- نافذة المشاركة -->
+    <div id="share-modal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="share-title">
+            <button class="modal-close" aria-label="إغلاق">&times;</button>
+            <h3 id="share-title">شارك الصفحة</h3>
+            <p class="modal-sub">انشرها مع أصدقائك ❤️</p>
+            <div class="share-row">
+                <button class="share-btn" data-network="whatsapp" aria-label="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </button>
+                <button class="share-btn" data-network="telegram" aria-label="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                </button>
+                <button class="share-btn" data-network="twitter" aria-label="X / Twitter">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </button>
+                <button class="share-btn" data-network="snapchat" aria-label="Snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                </button>
+                <button class="share-btn" data-network="copy" aria-label="نسخ الرابط">
+                    <i class="fa-solid fa-link"></i>
+                </button>
+            </div>
+            <div class="copy-bar">
+                <input id="share-link" type="text" readonly value="">
+                <button id="copy-btn">نسخ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- البطاقة الرئيسية -->
+    <main class="card-wrap">
+        <article class="card">
+
+            <!-- الهيدر -->
+            <header class="profile">
+                <div class="avatar-wrap">
+                    <div class="avatar-ring"></div>
+                    <img class="avatar" src="https://alakbar-store.com/public/uploads/files/ATG_0CliDILQoqB.jpeg" alt="Zaid Khaza'leh">
+                    <span class="verified" title="حساب رسمي"><i class="fa-solid fa-check"></i></span>
+                </div>
+
+                <h1 class="name">
+                    <span class="name-line">Zaid Khaza'leh</span>
+                </h1>
+
+                <p class="handle">@zd6</p>
+
+                <!-- شارة التخصص -->
+                <div class="specialty">
+                    <span class="specialty-pulse" aria-hidden="true"></span>
+                    <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                    <span>IoT Engineering Student</span>
+                    <span class="specialty-sep" aria-hidden="true">·</span>
+                    <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                    <span>JUST</span>
+                </div>
+
+                <blockquote class="dhikr">
+                    <span class="quote-mark" aria-hidden="true">﴾</span>
+                    لا إله إلا الله، وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير
+                    <span class="quote-mark" aria-hidden="true">﴿</span>
+                </blockquote>
+
+                <div class="badges" aria-hidden="true">
+                    <span class="badge"><i class="fa-solid fa-book-quran"></i> قرآن</span>
+                    <span class="badge"><i class="fa-solid fa-mosque"></i> سنة</span>
+                </div>
+
+                <!-- My Stack — تقنيات إنترنت الأشياء -->
+                <div class="stack" aria-label="My tech stack">
+                    <span class="stack-title"><i class="fa-solid fa-layer-group"></i> My Stack</span>
+                    <div class="stack-chips">
+                        <span class="chip"><i class="fa-solid fa-microchip"></i> ESP32</span>
+                        <span class="chip"><i class="fa-brands fa-linux"></i> Arduino</span>
+                        <span class="chip"><i class="fa-solid fa-network-wired"></i> MQTT</span>
+                        <span class="chip"><i class="fa-solid fa-server"></i> Node-RED</span>
+                        <span class="chip"><i class="fa-solid fa-cloud"></i> AWS IoT</span>
+                        <span class="chip"><i class="fa-solid fa-code"></i> Python</span>
+                        <span class="chip"><i class="fa-solid fa-wifi"></i> LoRa</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- شبكة الروابط -->
+            <section class="links" aria-label="روابطي">
+
+                <a href="https://instagram.com/zd6" target="_blank" rel="noopener" class="link-btn" data-brand="instagram" style="--brand:#E1306C;--brand2:#F77737;">
+                    <span class="link-icon"><i class="fa-brands fa-instagram"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">Instagram</span>
+                        <span class="link-sub">@zd6</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-arrow-up-left-from-square"></i></span>
+                </a>
+
+                <a href="https://t.me/JJ1JJ" target="_blank" rel="noopener" class="link-btn" data-brand="telegram" style="--brand:#229ED9;--brand2:#7AC9F0;">
+                    <span class="link-icon"><i class="fa-brands fa-telegram"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">Telegram</span>
+                        <span class="link-sub">@JJ1JJ</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-arrow-up-left-from-square"></i></span>
+                </a>
+
+                <a href="https://www.snapchat.com/add/zd6old" target="_blank" rel="noopener" class="link-btn" data-brand="snapchat" style="--brand:#FFFC00;--brand2:#FFE600;--ink:#111;">
+                    <span class="link-icon"><i class="fa-brands fa-snapchat"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">Snapchat</span>
+                        <span class="link-sub">zd6old</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-arrow-up-left-from-square"></i></span>
+                </a>
+
+                <a href="https://github.com/zd66x" target="_blank" rel="noopener" class="link-btn" data-brand="github" style="--brand:#FFFFFF;--brand2:#B0B0B0;--ink:#111;">
+                    <span class="link-icon"><i class="fa-brands fa-github"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">GitHub</span>
+                        <span class="link-sub">zd66x</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-arrow-up-left-from-square"></i></span>
+                </a>
+
+                <a href="https://ar.m.wikipedia.org/wiki/جامعة_العلوم_والتكنولوجيا_(الأردن)" target="_blank" rel="noopener" class="link-btn" data-brand="just" style="--brand:#0E7C66;--brand2:#1BB48A;">
+                    <span class="link-icon"><i class="fa-solid fa-university"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">جامعة العلوم والتكنولوجيا</span>
+                        <span class="link-sub">JUST — الأردن</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-arrow-up-left-from-square"></i></span>
+                </a>
+
+                <a href="https://live.kwikmotion.com/sbrksaquranradiolive/ksaquranradio/chunks.m3u8" target="_blank" rel="noopener" class="link-btn" data-brand="quran" style="--brand:#7C5CFF;--brand2:#B98CFF;">
+                    <span class="link-icon"><i class="fa-solid fa-microphone"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">إذاعة القرآن الكريم</span>
+                        <span class="link-sub">بث مباشر</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-play"></i></span>
+                </a>
+
+                <a href="http://n08.radiojar.com/dktga74wdd3vv?rj-ttl=5&rj-tok=AAABk6IjRw8Agk32ONglYT_gqA" target="_blank" rel="noopener" class="link-btn" data-brand="mosque" style="--brand:#1F8A4C;--brand2:#5BD08F;">
+                    <span class="link-icon"><i class="fa-solid fa-mosque"></i></span>
+                    <span class="link-text">
+                        <span class="link-title">إذاعة المسجد النبوي</span>
+                        <span class="link-sub">بث مباشر</span>
+                    </span>
+                    <span class="link-arrow"><i class="fa-solid fa-play"></i></span>
+                </a>
+
+            </section>
+
+            <!-- الفوتر -->
+            <footer class="footer">
+                <p class="footer-line">صُنع بـ <span class="heart">❤</span> — Zaid Khaza'leh</p>
+                <p class="footer-copy">© <span id="year"></span> · جميع الحقوق محفوظة</p>
+            </footer>
+
+        </article>
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
